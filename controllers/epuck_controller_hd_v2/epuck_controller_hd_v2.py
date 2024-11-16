@@ -106,6 +106,12 @@ def control_robot():
         elif global_backward:
             leftMotor.setVelocity(-0.2 * MAX_SPEED)
             rightMotor.setVelocity(-0.2 * MAX_SPEED)
+        elif global_turnRight:
+            leftMotor.setVelocity(0.2 * MAX_SPEED)
+            rightMotor.setVelocity(-0.2 * MAX_SPEED)
+        elif global_turnLeft:
+            leftMotor.setVelocity(0.2 * MAX_SPEED)
+            rightMotor.setVelocity(-0.2 * MAX_SPEED)
         else:
             leftMotor.setVelocity(0.0)
             rightMotor.setVelocity(0.0)
