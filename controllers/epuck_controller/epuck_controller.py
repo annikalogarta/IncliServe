@@ -1,44 +1,33 @@
 """epuck_controller controller."""
 
-# You may need to import some classes of the controller module. Ex:
-#  from controller import Robot, Motor, DistanceSensor
 from controller import Robot, Motor
+
+import hand_detection as h_d
 
 # create the Robot instance.
 robot = Robot()
 
-# get the time step of the current world.
 TIME_STEP = 64
 MAX_SPEED = 6.28
 
-# You should insert a getDevice-like function in order to get the
-# instance of a device of the robot. Something like:
-#  motor = robot.getDevice('motorname')
-#  ds = robot.getDevice('dsname')
-#  ds.enable(timestep)
 
-
-# get a handler to the motors and set target position to infinity (speed control)
 leftMotor = robot.getDevice('left wheel motor')
 rightMotor = robot.getDevice('right wheel motor')
 leftMotor.setPosition(float('inf'))
 rightMotor.setPosition(float('inf'))
 
-# set up the motor speeds at 10% of the MAX_SPEED.
-leftMotor.setVelocity(0.2 * MAX_SPEED)
-rightMotor.setVelocity(0.2 * MAX_SPEED)
+leftMotor.setVelocity(0.0)
+rightMotor.setVelocity(0.0)
 
-# Main loop:
-# - perform simulation steps until Webots is stopping the controller
 while robot.step(TIME_STEP) != -1:
-    # Read the sensors:
-    # Enter here functions to read sensor data, like:
-    #  val = ds.getValue()
 
-    # Process sensor data here.
-
-    # Enter here functions to send actuator commands, like:
-    #  motor.setPosition(10.0)
+    if h_d.global_forward:
+        leftMotor.setVelocity(0.2 * MAX_SPEED)
+        rightMotor.setVelocity(0.2 * MAX_SPEED)
+        
+    elif h_d.global_backward:
+        leftMotor.setVelocity(-0.2 * MAX_SPEED)
+        rightMotor.setVelocity(-0.2 * MAX_SPEED)
+    
     pass
 
-# Enter here exit cleanup code.
