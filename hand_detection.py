@@ -29,19 +29,19 @@ while True:
         for hand_landmarks in results.multi_hand_landmarks:
             mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
     
-        index_finger_y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y
-        thumb_y = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y
+            index_finger_y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y
+            thumb_y = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y
 
-        if index_finger_y < thumb_y:
-            hand_gesture = 'pointing up'
-        elif index_finger_y > thumb_y:
-            hand_gesture = 'pointing down'
-        else:
-            hand_gesture = 'other'
+            if index_finger_y < thumb_y:
+                hand_gesture = 'pointing up'
+            elif index_finger_y > thumb_y:
+                hand_gesture = 'pointing down'
+            else:
+                hand_gesture = 'other'
 
         
-        cv.putText(frame, hand_gesture, (10,60), cv.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 1 )
-        
+            cv.putText(frame, hand_gesture, (10,60), cv.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 1 )
+            
     # Display the resulting frame
     cv.imshow('Live Video', frame)
 
