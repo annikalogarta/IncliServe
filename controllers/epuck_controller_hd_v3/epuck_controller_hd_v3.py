@@ -68,7 +68,10 @@ def process_gesture():
                     for i in range(2))
                 
                 openHand = ((index_finger[1] < thumb[1]) and (middle_finger[1] < thumb[1]) and (ring_finger[1] < thumb[1]) and (pinky[1] < thumb[1]) and (wrist[1] > thumb[1]))
-                closedFistForTurning = ((index_finger[0] > thumb[0]) and (middle_finger[0] > thumb[0]) and (ring_finger[0] > thumb[0]))
+                closedFistForTurning = any(
+                    ((index_finger[i] < thumb[i]) and (middle_finger[i] < thumb[i]) and (ring_finger[i] < thumb[i])) or
+                    ((index_finger[i] > thumb[i]) and (middle_finger[i] > thumb[i]) and (ring_finger[i] > thumb[i]))
+                    for i in range(2))
                 
                 if pointingBool and (index_finger[1] < thumb[1]):
                     global_forward = True
