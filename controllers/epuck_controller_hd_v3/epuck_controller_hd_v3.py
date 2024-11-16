@@ -112,7 +112,7 @@ def process_gesture():
                 else:
                     hand_gesture = 'No gesture detected'
 
-                cv.putText(frame, hand_gesture, (10, 60), cv.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 1)
+                cv.putText(frame, hand_gesture, (10, 60), cv.FONT_HERSHEY_SIMPLEX, 1, (19, 191, 10), 1)
 
         # Display the resulting frame
         cv.imshow('Live Video', frame)
