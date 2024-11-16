@@ -71,34 +71,39 @@ def process_gesture():
                 closedFistForTurning = ((index_finger[0] > thumb[0]) and (middle_finger[0] > thumb[0]) and (ring_finger[0] > thumb[0]))
                 
                 if pointingBool and (index_finger[1] < thumb[1]):
+                    global_stop = False
                     global_forward = True
                     global_backward = False
                     global_turnLeft = False
                     global_turnRight = False
                     hand_gesture = 'Pointing up - going forward'
                 elif pointingBool and (index_finger[1] > thumb[1]):
-                    global_backward = True
+                    global_stop = False
                     global_forward = False
+                    global_backward = True
                     global_turnLeft = False
                     global_turnRight = False
                     hand_gesture = 'Pointing down - going backward'
                 elif openHand:
                     global_stop = True
-                    global_backward = False
                     global_forward = False
+                    global_backward = False
                     global_turnLeft = False
                     global_turnRight = False
                     hand_gesture = 'Open hand - stopping'
                 elif closedFistForTurning:
                     if (thumb[0] > pinky[0]) and (thumb[0] > index_finger[0]):
-                        global_turnLeft = True
+                        global_stop = False
                         global_forward = False
                         global_backward = False
+                        global_turnLeft = True
+                        global_turnRight = False
                         hand_gesture = "Turning left"
                     elif (thumb[0] < pinky[0]) and (thumb[0] < index_finger[0]):
-                        global_turnRight = True
+                        global_stop = False
                         global_forward = False
                         global_backward = False
+                        global_turnRight = True
                         global_turnLeft = False
                         hand_gesture = "Turning right"
                 else:
@@ -128,7 +133,7 @@ def control_robot():
         elif global_turnLeft:
             leftMotor.setVelocity(0.2 * MAX_SPEED)
             rightMotor.setVelocity(-0.2 * MAX_SPEED)
-        else:
+        elif global_stop:
             leftMotor.setVelocity(0.0)
             rightMotor.setVelocity(0.0)
         robot.step(TIME_STEP)
