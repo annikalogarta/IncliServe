@@ -74,14 +74,20 @@ def process_gesture():
                 if pointingBool and (index_finger[1] < thumb[1]):
                     global_forward = True
                     global_backward = False
+                    global_turnLeft = False
+                    global_turnRight = False
                     hand_gesture = 'Pointing up - going forward'
                 elif pointingBool and (index_finger[1] > thumb[1]):
                     global_backward = True
                     global_forward = False
+                    global_turnLeft = False
+                    global_turnRight = False
                     hand_gesture = 'Pointing down - going backward'
                 elif closedFist:
                     if (thumb[0] > pinky[0]) and (thumb[0] > index_finger[0]):
                         global_turnLeft = True
+                        global_forward = False
+                        global_backward = False
                         hand_gesture = "Turning left"
                     elif (thumb[0] < pinky[0]) and (thumb[0] < index_finger[0]):
                         global_turnRight = True
