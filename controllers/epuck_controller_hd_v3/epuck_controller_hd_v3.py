@@ -56,13 +56,21 @@ def process_gesture():
 
                 index_finger = [hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y]
                 thumb = [hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y]
+                ring_finger = [ hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].y ]
                 middle_finger = [hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].y]
+                pinky = [ hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].y ]
 
                 pointingBool = any(
                     (index_finger[i] < thumb[i] < middle_finger[i]) or
                     (index_finger[i] > thumb[i] > middle_finger[i])
                     for i in range(2))
+                
 
+                closedFist = any(
+                    ((index_finger[i] < thumb[i]) and (middle_finger[i] < thumb[i]) and (ring_finger[i] < thumb[i])) or
+                    ((index_finger[i] > thumb[i]) and (middle_finger[i] > thumb[i]) and (ring_finger[i] > thumb[i]))
+                    for i in range(2))
+                
                 if pointingBool and (index_finger[1] < thumb[1]):
                     global_forward = True
                     global_backward = False
@@ -71,6 +79,13 @@ def process_gesture():
                     global_backward = True
                     global_forward = False
                     hand_gesture = 'Pointing down - going backward'
+                elif closedFist:
+                    if (thumb[0] > pinky[0]) and (thumb[0] > index_finger[0]):
+                        global_turnLeft = True
+                        hand_gesture = "Turning left"
+                    elif (thumb[0] < pinky[0]) and (thumb[0] < index_finger[0]):
+                        global_turnRight = True
+                        hand_gesture = "Turning right"
                 else:
                     hand_gesture = 'No gesture detected'
 
