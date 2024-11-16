@@ -122,7 +122,7 @@ def process_gesture():
             global_stop = False
             global_forward = False
             global_backward = False
-            global_turnRight = True
+            global_turnRight = False
             global_turnLeft = False
             break
 
