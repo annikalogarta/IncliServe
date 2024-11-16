@@ -119,6 +119,11 @@ def process_gesture():
 
         # Break the loop when 'q' is pressed
         if cv.waitKey(1) & 0xFF == ord('q'):
+            global_stop = False
+            global_forward = False
+            global_backward = False
+            global_turnRight = True
+            global_turnLeft = False
             break
 
 # Function for controlling robot's motion based on gestures
