@@ -4,6 +4,7 @@ import numpy as np
 import pyautogui as pya
 import mediapipe as mp
 import threading
+import time
 
 # Webots Robot Setup
 robot = Robot()
@@ -124,6 +125,7 @@ def process_gesture():
             global_backward = False
             global_turnRight = False
             global_turnLeft = False
+            time.sleep(2.5)
             break
 
 # Function for controlling robot's motion based on gestures
