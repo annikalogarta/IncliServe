@@ -38,7 +38,7 @@ mp_drawing = mp.solutions.drawing_utils
 
 # Function for camera processing and gesture detection
 def process_gesture():
-    global global_forward, global_backward
+    global global_forward, global_backward, global_turnRight, global_turnLeft
     while True:
         # Capture frame-by-frame
         ret, frame = cap.read()
