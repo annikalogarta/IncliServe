@@ -85,6 +85,9 @@ def process_gesture():
                         hand_gesture = "Turning left"
                     elif (thumb[0] < pinky[0]) and (thumb[0] < index_finger[0]):
                         global_turnRight = True
+                        global_forward = False
+                        global_backward = False
+                        global_turnLeft = False
                         hand_gesture = "Turning right"
                 else:
                     hand_gesture = 'No gesture detected'
