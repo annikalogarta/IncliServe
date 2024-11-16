@@ -58,18 +58,17 @@ def process_gesture():
                 thumb = [hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y]
                 ring_finger = [ hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].y ]
                 middle_finger = [hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].y]
+                ring_finger = [hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].x , hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].y ]
                 pinky = [ hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].y ]
+                wrist = [ hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].x, hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].y ]
 
                 pointingBool = any(
                     (index_finger[i] < thumb[i] < middle_finger[i]) or
                     (index_finger[i] > thumb[i] > middle_finger[i])
                     for i in range(2))
                 
-
-                closedFist = any(
-                    ((index_finger[i] < thumb[i]) and (middle_finger[i] < thumb[i]) and (ring_finger[i] < thumb[i])) or
-                    ((index_finger[i] > thumb[i]) and (middle_finger[i] > thumb[i]) and (ring_finger[i] > thumb[i]))
-                    for i in range(2))
+                openHand = ((index_finger[1] < thumb[1]) and (middle_finger[1] < thumb[1]) and (ring_finger[1] < thumb[1]) and (pinky[1] < thumb[1]) and (wrist[1] > thumb[1]))
+                closedFistForTurning = ((index_finger[0] > thumb[0]) and (middle_finger[0] > thumb[0]) and (ring_finger[0] > thumb[0]))
                 
                 if pointingBool and (index_finger[1] < thumb[1]):
                     global_forward = True
@@ -83,7 +82,14 @@ def process_gesture():
                     global_turnLeft = False
                     global_turnRight = False
                     hand_gesture = 'Pointing down - going backward'
-                elif closedFist:
+                elif openHand:
+                    global_stop = True
+                    global_backward = False
+                    global_forward = False
+                    global_turnLeft = False
+                    global_turnRight = False
+                    hand_gesture = 'Open hand - stopping'
+                elif closedFistForTurning:
                     if (thumb[0] > pinky[0]) and (thumb[0] > index_finger[0]):
                         global_turnLeft = True
                         global_forward = False
