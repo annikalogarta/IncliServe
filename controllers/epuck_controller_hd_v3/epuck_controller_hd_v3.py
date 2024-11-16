@@ -38,7 +38,7 @@ mp_drawing = mp.solutions.drawing_utils
 
 # Function for camera processing and gesture detection
 def process_gesture():
-    global global_forward, global_backward
+    global global_forward, global_backward, global_turnRight, global_turnLeft, global_stop
     while True:
         # Capture frame-by-frame
         ret, frame = cap.read()
@@ -134,8 +134,8 @@ def control_robot():
             leftMotor.setVelocity(0.2 * MAX_SPEED)
             rightMotor.setVelocity(-0.2 * MAX_SPEED)
         elif global_turnLeft:
-            leftMotor.setVelocity(0.2 * MAX_SPEED)
-            rightMotor.setVelocity(-0.2 * MAX_SPEED)
+            leftMotor.setVelocity(-0.2 * MAX_SPEED)
+            rightMotor.setVelocity(0.2 * MAX_SPEED)
         elif global_stop:
             leftMotor.setVelocity(0.0)
             rightMotor.setVelocity(0.0)
