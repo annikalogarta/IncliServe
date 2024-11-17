@@ -3,8 +3,8 @@
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/boston_dynamics/spot/protos/Spot.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Parquetry.proto"
 
 WorldInfo {
 }
@@ -18,13 +18,11 @@ TexturedBackgroundLight {
 }
 RectangleArena {
   translation 0.10093 -0.0423884 1.11022e-16
-  floorSize 5 5
-  floorTileSize 1 1
-}
-Spot {
-  translation -1.25745 -1.2857 0.624
-  controller "spot_controller"
+  floorSize 3 3
+  floorAppearance Parquetry {
+    type "light strip"
+  }
 }
 E-puck {
-  controller "epuck_controller"
+  controller "epuck_controller_hd_v3"
 }
